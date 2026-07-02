@@ -10,6 +10,7 @@ export default function Passport() {
   const [confirm, setConfirm] = useState(false);
 
   const unlocked = useMemo(() => computeBadges(progress), [progress]);
+  const unlockedKey = useMemo(() => [...unlocked].sort().join(","), [unlocked]);
   const learned = totalLearned(progress);
   const stars = quizStars(progress);
   const level = currentLevel(learned, stars);
@@ -24,7 +25,7 @@ export default function Passport() {
     setJourney("india", indiaPct);
     setJourney("world", worldPct);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [unlocked, indiaPct, worldPct]);
+  }, [unlockedKey, indiaPct, worldPct]);
 
   const doReset = () => { resetAll(); setConfirm(false); };
 

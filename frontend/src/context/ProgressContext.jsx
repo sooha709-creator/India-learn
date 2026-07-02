@@ -73,7 +73,10 @@ export function ProgressProvider({ children }) {
         p.badges[id] ? p : { ...p, badges: { ...p.badges, [id]: { date: new Date().toISOString() } } }
       ),
     setJourney: (kind, val) =>
-      setProgress((p) => ({ ...p, journey: { ...p.journey, [kind]: Math.max(p.journey[kind], val) } })),
+      setProgress((p) => {
+        const nv = Math.max(p.journey[kind], val);
+        return nv === p.journey[kind] ? p : { ...p, journey: { ...p.journey, [kind]: nv } };
+      }),
     resetAll: () => {
       localStorage.removeItem(KEY);
       setProgress({ ...defaultProgress });
