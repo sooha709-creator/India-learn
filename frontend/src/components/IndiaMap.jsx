@@ -71,9 +71,9 @@ export default function IndiaMap({ selectedId, onSelect }) {
         })}
       </svg>
 
-      {/* Island insets - rendered as their own small SVGs, both clickable */}
-      <div className="mt-3 grid grid-cols-2 gap-2">
-        {["AN", "LD"].map((id) => {
+      {/* Island / small-scattered UT insets - rendered as their own small SVGs, all clickable */}
+      <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
+        {["AN", "LD", "PY"].map((id) => {
           const info = byId(id);
           const inset = insets[id];
           const isSelected = selectedId === id;
@@ -104,7 +104,7 @@ export default function IndiaMap({ selectedId, onSelect }) {
                 />
               </svg>
               <div className="min-w-0">
-                <p className="text-[11px] font-bold uppercase text-[var(--coral)] tracking-wider">Island UT</p>
+                <p className="text-[11px] font-bold uppercase text-[var(--coral)] tracking-wider">{id === "PY" ? "Small UT" : "Island UT"}</p>
                 <p className="text-xs font-bold text-[var(--navy)] leading-tight truncate">{info.name}</p>
                 <p className="text-[10px] text-[var(--navy)]/70">Capital: {info.capital}</p>
               </div>
