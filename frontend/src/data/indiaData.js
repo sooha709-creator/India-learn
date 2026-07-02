@@ -45,48 +45,7 @@ export const UNION_TERRITORIES = [
   { id: "PY", name: "Puducherry", capital: "Puducherry", knownFor: "French-style streets and seaside promenade", fact: "Puducherry has streets with colourful French colonial houses." },
 ];
 
-// Rough SVG polygons for a simplified India map. Coordinates are approximate
-// positions inside a 100x110 viewBox, arranged to resemble India's outline.
-// Each region has a unique clickable path.
-export const MAP_REGIONS = [
-  // Far north
-  { id: "JK", label: "J&K", d: "M28,6 L48,4 L58,10 L62,18 L52,22 L40,20 L30,16 Z", cx: 44, cy: 13 },
-  { id: "LA", label: "Ladakh", d: "M52,22 L62,18 L74,20 L72,30 L60,32 L52,28 Z", cx: 62, cy: 25 },
-  { id: "HP", label: "HP", d: "M40,20 L52,22 L52,28 L46,32 L38,30 Z", cx: 45, cy: 26 },
-  { id: "PB", label: "Punjab", d: "M30,26 L40,26 L38,34 L28,34 Z", cx: 33, cy: 30 },
-  { id: "CH", label: "CH", d: "M38,30 L42,30 L42,33 L38,33 Z", cx: 40, cy: 31.5 },
-  { id: "HR", label: "Haryana", d: "M32,34 L44,34 L44,42 L34,42 Z", cx: 39, cy: 38 },
-  { id: "DL", label: "Delhi", d: "M40,40 L44,40 L44,44 L40,44 Z", cx: 42, cy: 42 },
-  { id: "UK", label: "UK", d: "M44,30 L54,30 L54,38 L46,40 L44,36 Z", cx: 49, cy: 35 },
-  { id: "RJ", label: "Rajasthan", d: "M18,34 L34,34 L34,50 L20,54 L14,46 Z", cx: 24, cy: 44 },
-  { id: "UP", label: "UP", d: "M44,42 L64,40 L66,50 L54,54 L44,52 Z", cx: 54, cy: 47 },
-  // Northeast strip
-  { id: "SK", label: "Sikkim", d: "M70,44 L74,44 L74,48 L70,48 Z", cx: 72, cy: 46 },
-  { id: "AR", label: "AR", d: "M78,42 L94,40 L96,48 L82,50 Z", cx: 87, cy: 45 },
-  { id: "AS", label: "Assam", d: "M76,48 L92,48 L92,54 L76,54 Z", cx: 84, cy: 51 },
-  { id: "NL", label: "NL", d: "M88,52 L94,52 L94,58 L88,58 Z", cx: 91, cy: 55 },
-  { id: "MN", label: "MN", d: "M86,58 L92,58 L92,62 L86,62 Z", cx: 89, cy: 60 },
-  { id: "MZ", label: "MZ", d: "M82,60 L86,60 L86,66 L82,66 Z", cx: 84, cy: 63 },
-  { id: "TR", label: "Tripura", d: "M78,58 L82,58 L82,62 L78,62 Z", cx: 80, cy: 60 },
-  { id: "ML", label: "ML", d: "M76,54 L88,54 L88,58 L76,58 Z", cx: 82, cy: 56 },
-  // East
-  { id: "BR", label: "Bihar", d: "M58,44 L72,44 L72,52 L58,52 Z", cx: 65, cy: 48 },
-  { id: "JH", label: "JH", d: "M58,52 L72,52 L72,60 L58,60 Z", cx: 65, cy: 56 },
-  { id: "WB", label: "WB", d: "M70,52 L78,52 L78,66 L70,66 Z", cx: 74, cy: 59 },
-  { id: "OD", label: "Odisha", d: "M56,60 L72,60 L72,72 L58,74 Z", cx: 64, cy: 66 },
-  // Central & west
-  { id: "GJ", label: "Gujarat", d: "M8,46 L22,50 L24,60 L14,68 L6,60 Z", cx: 14, cy: 58 },
-  { id: "MP", label: "MP", d: "M26,50 L52,52 L56,62 L34,64 L24,60 Z", cx: 38, cy: 58 },
-  { id: "CT", label: "CT", d: "M46,60 L58,60 L60,72 L46,72 Z", cx: 53, cy: 66 },
-  { id: "MH", label: "MH", d: "M16,64 L46,64 L46,76 L20,78 Z", cx: 30, cy: 71 },
-  { id: "TG", label: "TG", d: "M36,74 L52,74 L52,82 L38,82 Z", cx: 44, cy: 78 },
-  { id: "AP", label: "AP", d: "M40,82 L58,82 L58,92 L42,94 L38,88 Z", cx: 48, cy: 88 },
-  { id: "GA", label: "Goa", d: "M20,80 L26,80 L26,84 L20,84 Z", cx: 23, cy: 82 },
-  { id: "KA", label: "Karnataka", d: "M22,82 L40,82 L40,94 L26,96 L20,90 Z", cx: 30, cy: 89 },
-  { id: "KL", label: "Kerala", d: "M24,96 L34,96 L34,104 L26,106 Z", cx: 29, cy: 100 },
-  { id: "TN", label: "TN", d: "M34,94 L44,94 L44,104 L36,106 L32,100 Z", cx: 38, cy: 100 },
-  { id: "PY", label: "PY", d: "M42,98 L46,98 L46,102 L42,102 Z", cx: 44, cy: 100 },
-];
-
-// Insets for island territories drawn separately in a chip strip
+// Rough SVG polygons removed - real map paths now live in
+// /app/frontend/src/data/indiaMapPaths.json (dissolved from
+// udit-001/india-maps-data GeoJSON, CC BY).
 export const ISLAND_INSETS = ["AN", "LD"];
