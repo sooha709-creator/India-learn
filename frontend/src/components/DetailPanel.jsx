@@ -75,6 +75,23 @@ export default function DetailPanel({ item, kind, onClose, onPractice }) {
                 <dd>{item.continent}</dd>
               </div>
             )}
+            {item.languages && item.languages.length > 0 && (
+              <div className="flex gap-2" data-testid="detail-languages">
+                <dt className="font-bold text-[var(--navy)] w-28 flex items-center gap-1">
+                  <span aria-hidden>💬</span>
+                  {kind === "country" ? "Main language(s)" : "Languages widely spoken"}
+                </dt>
+                <dd>{item.languages.join(", ")}</dd>
+              </div>
+            )}
+            {kind === "country" && !item.languages && (
+              <div className="flex gap-2" data-testid="detail-languages">
+                <dt className="font-bold text-[var(--navy)] w-24 flex items-center gap-1">
+                  <span aria-hidden>💬</span> Main language(s)
+                </dt>
+                <dd>Check local information</dd>
+              </div>
+            )}
             {item.knownFor && (
               <div className="flex gap-2">
                 <dt className="font-bold text-[var(--navy)] w-24">Known for</dt>
