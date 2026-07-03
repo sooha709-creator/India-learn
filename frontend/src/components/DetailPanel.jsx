@@ -1,5 +1,5 @@
 import React from "react";
-import { X, Heart, Award, GraduationCap } from "lucide-react";
+import { X, Award, GraduationCap } from "lucide-react";
 import { useProgress } from "@/context/ProgressContext";
 
 function CountryFlag({ country }) {
@@ -21,17 +21,9 @@ export default function DetailPanel({ item, kind, onClose, onPractice }) {
     toggleState,
     toggleUT,
     toggleCountry,
-    toggleFavourite,
   } = useProgress();
 
   if (!item) return null;
-
-  const idKey =
-    kind === "state"
-      ? `state:${item.id}`
-      : kind === "ut"
-        ? `ut:${item.id}`
-        : `country:${item.code}`;
 
   const isLearned =
     kind === "state"
@@ -39,8 +31,6 @@ export default function DetailPanel({ item, kind, onClose, onPractice }) {
       : kind === "ut"
         ? progress.learnedUTs.includes(item.id)
         : progress.learnedCountries.includes(item.code);
-
-  const isFav = progress.favourites.includes(idKey);
 
   const toggle = () => {
     if (kind === "state") {
@@ -192,19 +182,6 @@ export default function DetailPanel({ item, kind, onClose, onPractice }) {
           >
             <GraduationCap size={18} />
             Practice This Capital
-          </button>
-
-          <button
-            onClick={() => toggleFavourite(idKey)}
-            aria-label="Favourite"
-            data-testid="favourite-btn"
-            className={`w-12 h-12 rounded-2xl flex items-center justify-center border-2 ${
-              isFav
-                ? "bg-[var(--coral)] text-white border-[var(--coral)]"
-                : "bg-white border-[#E7DDBF] text-[var(--coral)]"
-            }`}
-          >
-            <Heart size={18} fill={isFav ? "currentColor" : "none"} />
           </button>
         </div>
       </div>
