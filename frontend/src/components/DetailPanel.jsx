@@ -2,36 +2,67 @@ import React from "react";
 import { X, Heart, Award, GraduationCap } from "lucide-react";
 import { useProgress } from "@/context/ProgressContext";
 
-// Shared detail panel for State / UT / Country
+function CountryFlag({ country }) {
+  return (
+    <img
+      src={`https://flagcdn.com/w80/${country.code.toLowerCase()}.png`}
+      alt={`${country.name} flag`}
+      width="48"
+      height="36"
+      loading="lazy"
+      className="w-12 h-9 rounded-md border border-slate-200 object-cover shadow-sm"
+    />
+  );
+}
+
 export default function DetailPanel({ item, kind, onClose, onPractice }) {
-  const { progress, toggleState, toggleUT, toggleCountry, toggleFavourite } = useProgress();
+  const {
+    progress,
+    toggleState,
+    toggleUT,
+    toggleCountry,
+    toggleFavourite,
+  } = useProgress();
+
   if (!item) return null;
 
   const idKey =
-    kind === "state" ? `state:${item.id}` :
-    kind === "ut" ? `ut:${item.id}` :
-    `country:${item.code}`;
+    kind === "state"
+      ? `state:${item.id}`
+      : kind === "ut"
+        ? `ut:${item.id}`
+        : `country:${item.code}`;
 
   const isLearned =
-    kind === "state" ? progress.learnedStates.includes(item.id) :
-    kind === "ut" ? progress.learnedUTs.includes(item.id) :
-    progress.learnedCountries.includes(item.code);
+    kind === "state"
+      ? progress.learnedStates.includes(item.id)
+      : kind === "ut"
+        ? progress.learnedUTs.includes(item.id)
+        : progress.learnedCountries.includes(item.code);
 
   const isFav = progress.favourites.includes(idKey);
 
   const toggle = () => {
-    if (kind === "state") toggleState(item.id);
-    else if (kind === "ut") toggleUT(item.id);
-    else toggleCountry(item.code);
+    if (kind === "state") {
+      toggleState(item.id);
+    } else if (kind === "ut") {
+      toggleUT(item.id);
+    } else {
+      toggleCountry(item.code);
+    }
   };
 
   const capitals = item.capitals || [item.capital];
 
   return (
-    <div className="fixed inset-0 z-50 bg-[var(--navy)]/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-2 sm:p-6" onClick={onClose} data-testid="detail-overlay">
+    <div
+      className="fixed inset-0 z-50 bg-[var(--navy)]/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-2 sm:p-6"
+      onClick={onClose}
+      data-testid="detail-overlay"
+    >
       <div
         className="w-full max-w-lg bg-[var(--paper)] rounded-3xl border-2 border-[#E7DDBF] shadow-xl overflow-hidden"
-        onClick={(e) => e.stopPropagation()}
+        onClick={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-label={item.name}
@@ -47,14 +78,27 @@ export default function DetailPanel({ item, kind, onClose, onPractice }) {
           </button>
 
           <div className="flex items-center gap-3">
-            <span className="text-4xl" aria-hidden>
-              {kind === "country" ? item.flag : kind === "ut" ? "🏛️" : "📍"}
-            </span>
+            {kind === "country" ? (
+              <CountryFlag country={item} />
+            ) : (
+              <span className="text-4xl" aria-hidden>
+                {kind === "ut" ? "🏛️" : "📍"}
+              </span>
+            )}
+
             <div>
-              <h3 className="font-display text-2xl sm:text-3xl font-bold text-[var(--navy)]" data-testid="detail-name">
+              <h3
+                className="font-display text-2xl sm:text-3xl font-bold text-[var(--navy)]"
+                data-testid="detail-name"
+              >
                 {item.name}
               </h3>
-              {isLearned && <span className="stamp text-xs mt-1 inline-block">Learned</span>}
+
+              {isLearned && (
+                <span className="stamp text-xs mt-1 inline-block">
+                  Learned
+                </span>
+              )}
             </div>
           </div>
 
@@ -63,38 +107,50 @@ export default function DetailPanel({ item, kind, onClose, onPractice }) {
               <dt className="font-bold text-[var(--navy)] w-24">Capital</dt>
               <dd data-testid="detail-capital">{capitals.join(" / ")}</dd>
             </div>
+
             {item.region && (
               <div className="flex gap-2">
                 <dt className="font-bold text-[var(--navy)] w-24">Region</dt>
                 <dd>{item.region}</dd>
               </div>
             )}
+
             {item.continent && (
               <div className="flex gap-2">
-                <dt className="font-bold text-[var(--navy)] w-24">Continent</dt>
+                <dt className="font-bold text-[var(--navy)] w-24">
+                  Continent
+                </dt>
                 <dd>{item.continent}</dd>
               </div>
             )}
+
             {item.languages && item.languages.length > 0 && (
               <div className="flex gap-2" data-testid="detail-languages">
                 <dt className="font-bold text-[var(--navy)] w-28 flex items-center gap-1">
                   <span aria-hidden>💬</span>
-                  {kind === "country" ? "Main language(s)" : "Languages widely spoken"}
+                  {kind === "country"
+                    ? "Main language(s)"
+                    : "Languages widely spoken"}
                 </dt>
                 <dd>{item.languages.join(", ")}</dd>
               </div>
             )}
+
             {kind === "country" && !item.languages && (
               <div className="flex gap-2" data-testid="detail-languages">
                 <dt className="font-bold text-[var(--navy)] w-24 flex items-center gap-1">
-                  <span aria-hidden>💬</span> Main language(s)
+                  <span aria-hidden>💬</span>
+                  Main language(s)
                 </dt>
                 <dd>Check local information</dd>
               </div>
             )}
+
             {item.knownFor && (
               <div className="flex gap-2">
-                <dt className="font-bold text-[var(--navy)] w-24">Known for</dt>
+                <dt className="font-bold text-[var(--navy)] w-24">
+                  Known for
+                </dt>
                 <dd>{item.knownFor}</dd>
               </div>
             )}
@@ -106,7 +162,10 @@ export default function DetailPanel({ item, kind, onClose, onPractice }) {
           </p>
 
           {item.capitalNote && (
-            <p className="mt-2 text-xs italic text-[var(--navy)]/80" data-testid="capital-note">
+            <p
+              className="mt-2 text-xs italic text-[var(--navy)]/80"
+              data-testid="capital-note"
+            >
               Capital note: {item.capitalNote}
             </p>
           )}
@@ -125,19 +184,24 @@ export default function DetailPanel({ item, kind, onClose, onPractice }) {
             <Award size={18} />
             {isLearned ? "Learned ✓ (tap to undo)" : "Mark as Learned"}
           </button>
+
           <button
             onClick={onPractice}
             data-testid="practice-capital-btn"
             className="flex-1 min-w-[150px] px-4 py-3 rounded-2xl font-bold text-sm bg-[var(--sky)] text-white hover:brightness-105 flex items-center justify-center gap-2"
           >
-            <GraduationCap size={18} /> Practice This Capital
+            <GraduationCap size={18} />
+            Practice This Capital
           </button>
+
           <button
             onClick={() => toggleFavourite(idKey)}
             aria-label="Favourite"
             data-testid="favourite-btn"
             className={`w-12 h-12 rounded-2xl flex items-center justify-center border-2 ${
-              isFav ? "bg-[var(--coral)] text-white border-[var(--coral)]" : "bg-white border-[#E7DDBF] text-[var(--coral)]"
+              isFav
+                ? "bg-[var(--coral)] text-white border-[var(--coral)]"
+                : "bg-white border-[#E7DDBF] text-[var(--coral)]"
             }`}
           >
             <Heart size={18} fill={isFav ? "currentColor" : "none"} />
