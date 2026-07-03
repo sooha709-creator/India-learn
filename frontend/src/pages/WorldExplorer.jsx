@@ -205,12 +205,14 @@ export default function WorldExplorer() {
               key={country.code}
               onClick={() => setSelectedCode(country.code)}
               data-testid={`world-card-${country.code}`}
-              className="text-left rounded-2xl border-2 border-[#F0E6CE] bg-white hover:bg-[var(--sky-soft)] transition p-3 relative"
+              className="text-left rounded-2xl border-2 border-[#F0E6CE] bg-white hover:bg-[var(--sky-soft)] transition p-3"
             >
               {learned && (
-                <span className="absolute top-2 right-2 stamp text-[10px]">
-                  Learned
-                </span>
+                <div className="mb-2 flex justify-end">
+                  <span className="rounded-full border-2 border-[var(--coral)] px-2 py-0.5 text-[10px] font-bold leading-none text-[var(--coral)]">
+                    Learned
+                  </span>
+                </div>
               )}
 
               <div className="flex items-center gap-2">
