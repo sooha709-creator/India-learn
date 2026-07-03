@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { COUNTRIES, CONTINENTS } from "@/data/worldData";
 import { useProgress } from "@/context/ProgressContext";
 import { pick } from "@/utils/progressUtils";
@@ -26,6 +27,7 @@ function FlagImage({ country, large = false }) {
 
 export default function WorldExplorer() {
   const { progress } = useProgress();
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
   const [sort, setSort] = useState("A-Z");
@@ -97,6 +99,14 @@ export default function WorldExplorer() {
   const selected = selectedCode
     ? COUNTRIES.find((country) => country.code === selectedCode)
     : null;
+
+  const practiceSelectedCountry = () => {
+    if (!selected) return;
+
+    const code = selected.code;
+    setSelectedCode(null);
+    navigate(`/play?practiceCountry=${code}`);
+  };
 
   return (
     <div>
@@ -205,14 +215,12 @@ export default function WorldExplorer() {
               key={country.code}
               onClick={() => setSelectedCode(country.code)}
               data-testid={`world-card-${country.code}`}
-              className="text-left rounded-2xl border-2 border-[#F0E6CE] bg-white hover:bg-[var(--sky-soft)] transition p-3"
+              className="text-left rounded-2xl border-2 border-[#F0E6CE] bg-white hover:bg-[var(--sky-soft)] transition p-3 relative"
             >
               {learned && (
-                <div className="mb-2 flex justify-end">
-                  <span className="rounded-full border-2 border-[var(--coral)] px-2 py-0.5 text-[10px] font-bold leading-none text-[var(--coral)]">
-                    Learned
-                  </span>
-                </div>
+                <span className="absolute top-2 right-2 stamp text-[10px]">
+                  Learned
+                </span>
               )}
 
               <div className="flex items-center gap-2">
@@ -262,7 +270,7 @@ export default function WorldExplorer() {
           item={selected}
           kind="country"
           onClose={() => setSelectedCode(null)}
-          onPractice={() => setSelectedCode(null)}
+          onPractice={practiceSelectedCountry}
         />
       )}
     </div>
